@@ -1,0 +1,119 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "sales-df-mine"
+		},
+		"dataLake_ls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'dataLake_ls'"
+		},
+		"AzureSqlDatabase_ls_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mothership-server.database.windows.net"
+		},
+		"AzureSqlDatabase_ls_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "capproject"
+		},
+		"AzureSqlDatabase_ls_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "pdeep"
+		},
+		"Databricks_ls_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1025-210111-vy2thrcj"
+		},
+		"KeyVault_ls_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://dfkeyvaultdf.vault.azure.net/"
+		},
+		"S3_ls_properties_typeProperties_accessKeyId": {
+			"type": "object",
+			"defaultValue": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "KeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "AWSAccessKey"
+			}
+		},
+		"dataLake_ls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://salesss.dfs.core.windows.net/"
+		},
+		"trigger1_properties_pipeline1_parameters_filename": {
+			"type": "string",
+			"defaultValue": "@triggerBody().filename"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/850e0627-f35f-4c47-bbe7-0feb38823a86/resourceGroups/sales/providers/Microsoft.Storage/storageAccounts/salesss"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "sales-df-mine_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"dataLake_ls_accountKey": {
+						"value": "[parameters('dataLake_ls_accountKey')]"
+					},
+					"KeyVault_ls_properties_typeProperties_baseUrl": {
+						"value": "[parameters('KeyVault_ls_properties_typeProperties_baseUrl')]"
+					},
+					"dataLake_ls_properties_typeProperties_url": {
+						"value": "[parameters('dataLake_ls_properties_typeProperties_url')]"
+					},
+					"AzureSqlDatabase_ls_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase_ls_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase_ls_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase_ls_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase_ls_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase_ls_properties_typeProperties_userName')]"
+					},
+					"Databricks_ls_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('Databricks_ls_properties_typeProperties_existingClusterId')]"
+					},
+					"S3_ls_properties_typeProperties_accessKeyId": {
+						"value": "[parameters('S3_ls_properties_typeProperties_accessKeyId')]"
+					},
+					"trigger1_properties_pipeline1_parameters_filename": {
+						"value": "[parameters('trigger1_properties_pipeline1_parameters_filename')]"
+					},
+					"trigger1_properties_typeProperties_scope": {
+						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
