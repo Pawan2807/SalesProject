@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook1",
+				"name": "Databricks",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
@@ -22,7 +22,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/manojadarsh22@gmail.com/Sales Project",
+					"notebookPath": "/Users/manojadarsh22@gmail.com/SalesProject/Databricks Notebook/Sales Project",
 					"baseParameters": {
 						"filename": {
 							"value": "@pipeline().parameters.filename",
