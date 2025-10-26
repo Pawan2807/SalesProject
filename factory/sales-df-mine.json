@@ -1,0 +1,9 @@
+{
+	"name": "sales-df-mine",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "658f0b2c-9829-4282-8f98-6a0120c6371c",
+		"tenantId": "acdc3556-ae49-422b-a77b-046b4724d6f3"
+	}
+}

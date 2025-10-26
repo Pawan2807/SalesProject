@@ -1,0 +1,24 @@
+{
+	"name": "AzureSqlDatabase_ls",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "mothership-server.database.windows.net",
+			"database": "capproject",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "pdeep",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "KeyVault_ls",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "database"
+			}
+		}
+	}
+}
